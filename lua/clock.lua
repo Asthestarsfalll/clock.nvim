@@ -11,8 +11,7 @@ end
 function C.setup(opts)
 	opts = opts or {}
 	opts.default_inter = minute2second(opts.default_inter or 1)
-	opts.default_inter = 1
-	local restart = false
+	local restart = opts.restart or false
 	local info = nil
 	local default_info = opts.default_info or "ticktack! ticktack! ticktack!"
 	local icon = opts.icon or "⏰"
@@ -35,7 +34,6 @@ function C.setup(opts)
 			on_open = function()
 				is_timing = false
 				timer:stop()
-				vim.print("stop")
 			end,
 			on_close = function()
 				if restart then
@@ -47,8 +45,8 @@ function C.setup(opts)
 	end
 
 	vim.api.nvim_create_user_command("ClockWhen", function()
-		local minutes_remaining = second2minute(timer:get_due_in())
 		if is_timing then
+			local minutes_remaining = second2minute(timer:get_due_in())
 			vim.notify(
 				string.format(
 					icon .. "Clock in " .. minutes_remaining .. " %s, or sooner",
@@ -62,10 +60,6 @@ function C.setup(opts)
 	end, {})
 
 	local function set_clock(args)
-		-- if args["args"] == "" then
-		-- 	vim.notify(icon .. "Empty arguments!", vim.log.levels.WARN, notify_args)
-		-- 	return
-		-- end
 		local str = args["args"]
 		local parts = {}
 		local user_info = nil
@@ -89,14 +83,12 @@ function C.setup(opts)
 		if #parts > (has_info and 2 or 1) then
 			vim.notify(icon .. "Invalid arguments!", vim.log.levels.WARN, notify_args)
 			return
-		end
-
-		if #parts > (has_info and 2 or 1) and string.len(parts[#parts]) > 1 then
-			restart = string.sub(parts[2], -1) == "!"
+		elseif string.len(parts[#parts]) > 1 then
+			restart = string.sub(parts[#parts], -1) == "!"
 			if restart then
-				m = tonumber(parts[2]:sub(1, -2))
+				m = tonumber(parts[#parts]:sub(1, -2))
 			else
-				m = tonumber(parts[2])
+				m = tonumber(parts[#parts])
 			end
 			if m == nil then
 				vim.notify(
@@ -136,6 +128,7 @@ function C.setup(opts)
 		if is_timing then
 			vim.notify(icon .. "Timer is running.", vim.log.levels.WARN, notify)
 		else
+			is_timing = true
 			timer:again()
 		end
 	end, {})
