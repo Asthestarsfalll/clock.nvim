@@ -19,7 +19,7 @@ require("clock").setup()
 ```lua
 require("clock").setup({
     default_inter = 1,
-    default_info = ticktack! ticktack! ticktack!",
+    default_info = "ticktack! ticktack! ticktack!",
     restart = false,
     icon = "⏰",
 })
@@ -27,23 +27,23 @@ require("clock").setup({
 
 ## Commands
 
-`ClockMe` - Set Clock Event, Format: `ClockMe ['EventInfo' [interval[!]]]`, `all the arguments are optional`. `!` means wether to repeat timing.
+`ClockMe` - Set Clock Event, Format: `ClockMe ['EventInfo'][interval][!]`, `all the arguments are optional`. `!` means wether to repeat timing.
 
 example:
 ```lua
--- this will remind you to eat lunch after 10 minutes repeatly
+-- this will remind you to eat lunch after every 10 minutes
 ClockMe 'Eat Lunch' 10!
 
 -- this will remind you to eat lunch after 10 minutes once
 ClockMe 'Eat Lunch' 10
 
--- this will remind you to eat lunch after default interval repeatly
+-- this will remind you to eat lunch after every default interval 
 ClockMe 'Eat Lunch'!
 
--- this will remind you to do sth after 10 minutes repeatly
+-- this will remind you to do sth after 10 minutes
 ClockMe 10
 
--- this will remind you to do sth after default interval repeatly
+-- this will remind you to do sth according to default setting
 ClockMe
 ```
 
