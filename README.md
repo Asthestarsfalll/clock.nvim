@@ -1,7 +1,5 @@
 # clock.nvim
 
-> Time to stand reminders
-
 ## Install
 
 ```lua
@@ -28,19 +26,20 @@ require("clock").setup({
 
 ## Commands
 
-`ClockMe` - 
+`ClockMe` - Set Clock Event, Format: `ClockMe 'EventInfo' [interval][!]`, the `!` means wether repeat timing.
 
-`ClockWhen` - Display time remaining until next stand
+`ClockWhen` - Display time remaining until next Clock.
 
-`Gotit` - Stand, dismissing any notifications and restarting the timer
+`Gotit` - Dismissing any notifications and restarting the timer
 
-`ClockAgain` - 
+`ClockAgain` - Restart last Clock Event.
 
 ## TODO
-- [] Support store clock events
-- [] Show remaining time on statusline
-- [] Support multiple clock events
-- [] Stats of detail data
+- [ ] Support store clock events
+- [ ] Show remaining time on statusline
+- [ ] Support multiple clock events
+- [ ] Stats of detail data
+
 
 ## Acknowledgment
 
